@@ -14,10 +14,10 @@ public class Desarrollador extends Empleado {
     }
     
     public Desarrollador(TipoDocumento tipoDocumento, String documento, String nombre,
-            float valorHora, int numeroHorasTrabajadas,
+            float valorHora, int numeroHorasTrabajadas, Empresa empresa,
            LenguajeProgramacion lenguajesProgramacion, Experiencia nivelExperiencia,
             int proyectosEntregados) {
-        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas); 
+        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa); 
         this.lenguajesProgramacion = lenguajesProgramacion;
         this.nivelExperiencia = nivelExperiencia;
         this.proyectosEntregados = proyectosEntregados;

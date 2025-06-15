@@ -9,19 +9,20 @@ public abstract class Empleado {
     private double valorHora;
     private int numeroHorasTrabajadas;
     // Establecer relación con la empresa
+    private Empresa empresa;
 
-
-
-    public Empleado(){
+    public Empleado() {
 
     }
-    
-    public Empleado(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora, int numeroHorasTrabajadas){
+
+    public Empleado(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora,
+            int numeroHorasTrabajadas, Empresa empresa) {
         this.tipoDocumento = tipoDocumento;
         this.documento = documento;
         this.nombre = nombre;
         this.valorHora = valorHora;
         this.numeroHorasTrabajadas = numeroHorasTrabajadas;
+        this.empresa = empresa;
     }
 
     public TipoDocumento getTipoDocumento() {
@@ -63,10 +64,22 @@ public abstract class Empleado {
     public void setNumeroHorasTrabajadas(int numeroHorasTrabajadas) {
         this.numeroHorasTrabajadas = numeroHorasTrabajadas;
     }
-    
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado: " + nombre + ", Documento: " + documento +
+                ", Empresa: " + (empresa != null ? empresa.getNombre() : "Sin asignar");
+    }
+
     public abstract double salarioBruto();
+
     public abstract double bonificacionLabor();
-
-
-    
 }

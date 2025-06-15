@@ -11,9 +11,9 @@ public class Admin extends Empleado {
     }
 
     public Admin(TipoDocumento tipoDocumento, String documento, String nombre,
-            float valorHora, int numeroHorasTrabajadas,
+            float valorHora, int numeroHorasTrabajadas, Empresa empresa,
             int documentosGestionados, int llamadasAtendidas) {
-        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas);
+        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa);
         this.documentosGestionados = documentosGestionados;
         this.llamadasAtendidas = llamadasAtendidas;
     }

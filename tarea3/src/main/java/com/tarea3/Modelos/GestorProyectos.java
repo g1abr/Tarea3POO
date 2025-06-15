@@ -10,9 +10,8 @@ public class GestorProyectos extends Empleado {
 
     }
 
-    public GestorProyectos(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora,
-            int numeroHorasTrabajadas, Area_enum area) {
-        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas);
+    public GestorProyectos(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora, int numeroHorasTrabajadas, Empresa empresa, Area_enum area) {
+        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa);
         this.area = area;
     }
 

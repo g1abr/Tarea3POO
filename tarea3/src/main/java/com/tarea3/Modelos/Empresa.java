@@ -71,5 +71,8 @@ public class Empresa {
     public void setRegistroCamaraComercio(String registroCamaraComercio) {
         this.registroCamaraComercio = registroCamaraComercio;
     }
-    
+    @Override
+    public String toString() {
+        return "Empresa: " + nombre + ", NIT: " + nit + ", Ciudad: " + ciudad + ", Representante Legal: " + representanteLegal + ", Registro de la Camara de comercio de " + ciudad + ": " + registroCamaraComercio;
+    }
 }
