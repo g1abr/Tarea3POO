@@ -75,8 +75,10 @@ public abstract class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado: " + nombre + ", Documento: " + documento +
-                ", Empresa: " + (empresa != null ? empresa.getNombre() : "Sin asignar");
+        return "Empleado: " + nombre + ", Documento: " + documento + 
+                ", Empresa: " +(empresa != null ? 
+               empresa.getNombre() + " (NIT: " + empresa.getNit() + ")" : 
+               "Sin asignar");
     }
 
     public abstract double salarioBruto();

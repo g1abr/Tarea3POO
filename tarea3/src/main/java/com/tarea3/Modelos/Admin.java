@@ -7,7 +7,7 @@ public class Admin extends Empleado {
     private int llamadasAtendidas;
 
     public Admin() {
-        
+
     }
 
     public Admin(TipoDocumento tipoDocumento, String documento, String nombre,
@@ -47,5 +47,7 @@ public class Admin extends Empleado {
     public double bonificacionLabor() {
         return calcularProductividad() > 100 ? 300000 : 150000;
     }
+
+ 
 
 }

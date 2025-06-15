@@ -100,7 +100,7 @@ public class Main {
                     Empresa empresaSeleccionada = empresas.get(seleccionEmpresa - 1);
 
                     System.out.print(
-                            "Tipo documento (1. Cedudla de Ciudadania, 2. Cedula de Extranjeria, 3. Pasaporte, 4. Pep): ");
+                            "Tipo documento (1. Cedula de Ciudadania, 2. Cedula de Extranjeria, 3. Pasaporte, 4. Pep): ");
 
                     TipoDocumento tipoDoc = null;
 
@@ -126,8 +126,23 @@ public class Main {
 
                     switch (tipo) {
                         case 1 -> {
-                            System.out.print("Lenguaje (JAVA, PYTHON, JAVASCRIPT): ");
-                            LenguajeProgramacion lenguaje = LenguajeProgramacion.valueOf(sc.nextLine().toUpperCase());
+                            System.out.print(
+                                    "Lenguaje (1. JAVA, 2. PYTHON, 3. JAVASCRIPT, 4. CSHARP, 5. KOTLIN, 6. RUBY): ");
+                            LenguajeProgramacion lenguaje = null;
+
+                            while (lenguaje == null) {
+                                String entradaCiudad = sc.nextLine().trim();
+                                switch (entradaCiudad) {
+                                    case "1" -> lenguaje = LenguajeProgramacion.JAVA;
+                                    case "2" -> lenguaje = LenguajeProgramacion.PYTHON;
+                                    case "3" -> lenguaje = LenguajeProgramacion.JAVASCRIPT;
+                                    case "4" -> lenguaje = LenguajeProgramacion.CSHARP;
+                                    case "5" -> lenguaje = LenguajeProgramacion.KOTLIN;
+                                    case "6" -> lenguaje = LenguajeProgramacion.KOTLIN;
+                                    default -> System.out.println("Opción inválida. Intente nuevamente.");
+                                }
+                            }
+
                             System.out.print("Nivel experiencia: JUNIOR, SEMISENIOR, SENIOR: (Digite 1,2 o 3) ");
                             Experiencia experiencia = null;
 
@@ -143,7 +158,8 @@ public class Main {
 
                             System.out.print("Proyectos entregados: ");
                             int proyectos = Integer.parseInt(sc.nextLine());
-                            Desarrollador dev = new Desarrollador(tipoDoc, doc, nombre, valorHora, horas, empresaSeleccionada,
+                            Desarrollador dev = new Desarrollador(tipoDoc, doc, nombre, valorHora, horas,
+                                    empresaSeleccionada,
                                     lenguaje,
                                     experiencia, proyectos);
                             opEmpleado.agregarEmpleado(dev);
@@ -153,7 +169,8 @@ public class Main {
                             int documentos = Integer.parseInt(sc.nextLine());
                             System.out.print("Llamadas atendidas: ");
                             int llamadas = Integer.parseInt(sc.nextLine());
-                            Admin admin = new Admin(tipoDoc, doc, nombre, valorHora, horas, empresaSeleccionada, documentos, llamadas);
+                            Admin admin = new Admin(tipoDoc, doc, nombre, valorHora, horas, empresaSeleccionada,
+                                    documentos, llamadas);
                             opEmpleado.agregarEmpleado(admin);
                         }
                         case 3 -> {
@@ -169,7 +186,8 @@ public class Main {
                                 }
                             }
 
-                            GestorProyectos gestor = new GestorProyectos(tipoDoc, doc, nombre, valorHora, horas, empresaSeleccionada, area);
+                            GestorProyectos gestor = new GestorProyectos(tipoDoc, doc, nombre, valorHora, horas,
+                                    empresaSeleccionada, area);
                             opEmpleado.agregarEmpleado(gestor);
                         }
                         default -> System.out.println("Tipo inválido.");
@@ -206,17 +224,43 @@ public class Main {
                 case 6 -> {
                     System.out.print("Documento del empleado: ");
                     String doc = sc.nextLine();
-                    System.out.print("Horas trabajadas: ");
-                    int horas = Integer.parseInt(sc.nextLine());
-                    double sueldo = opEmpleado.calcularSueldo(doc, horas);
+                    double sueldo = opEmpleado.calcularSueldo(doc);
                     System.out.println("Sueldo calculado: $" + sueldo);
                 }
 
                 case 7 -> {
-                    System.out.print("NIT de la empresa: ");
-                    String nit = sc.nextLine();
-                    int total = opEmpleado.contarPorEmpresa(nit);
-                    System.out.println("Total empleados: " + total);
+                    List<Empresa> empresas = opEmpresa.listarEmpresas();
+
+                    if (!empresas.isEmpty()) {
+                        System.out.println("Empresas registradas:");
+                        for (int i = 0; i < empresas.size(); i++) {
+                            System.out.println((i + 1) + ". " + empresas.get(i).getNombre() + " - NIT: "
+                                    + empresas.get(i).getNit());
+                        }
+
+                        int seleccion = -1;
+                        Empresa empresaSeleccionada = null;
+
+                        while (empresaSeleccionada == null) {
+                            System.out.print("Seleccione una empresa por número: ");
+                            try {
+                                seleccion = Integer.parseInt(sc.nextLine()) - 1;
+                                if (seleccion >= 0 && seleccion < empresas.size()) {
+                                    empresaSeleccionada = empresas.get(seleccion);
+                                } else {
+                                    System.out.println("Número inválido. Intente nuevamente.");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Entrada no válida. Ingrese un número.");
+                            }
+                        }
+
+                        int total = opEmpleado.contarPorEmpresa(empresaSeleccionada.getNit());
+                        System.out.println(
+                                "Total empleados en la empresa " + empresaSeleccionada.getNombre() + ": " + total);
+                    } else {
+                        System.out.println("No hay empresas registradas.");
+                    }
                 }
 
                 case 8 -> {
@@ -225,15 +269,43 @@ public class Main {
                     Empresa empresa = opEmpresa.buscarEmpresa(nit);
                     System.out.println(empresa != null ? empresa : "Empresa no encontrada.");
                 }
-
                 case 9 -> {
-                    System.out.print("NIT de la empresa: ");
-                    String nit = sc.nextLine();
-                    List<Empleado> empleados = opEmpleado.listarPorEmpresa(nit);
-                    if (empleados.isEmpty()) {
-                        System.out.println("No hay empleados en esta empresa.");
+                    List<Empresa> empresas = opEmpresa.listarEmpresas();
+
+                    if (!empresas.isEmpty()) {
+                        System.out.println("Empresas registradas:");
+                        for (int i = 0; i < empresas.size(); i++) {
+                            System.out.println((i + 1) + ". " + empresas.get(i).getNombre() + " - NIT: "
+                                    + empresas.get(i).getNit());
+                        }
+
+                        int seleccion = -1;
+                        Empresa empresaSeleccionada = null;
+
+                        while (empresaSeleccionada == null) {
+                            System.out.print("Seleccione una empresa por número: ");
+                            try {
+                                seleccion = Integer.parseInt(sc.nextLine()) - 1;
+                                if (seleccion >= 0 && seleccion < empresas.size()) {
+                                    empresaSeleccionada = empresas.get(seleccion);
+                                } else {
+                                    System.out.println("Número inválido. Intente nuevamente.");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Entrada no válida. Ingrese un número.");
+                            }
+                        }
+
+                        List<Empleado> empleados = opEmpleado.listarPorEmpresa(empresaSeleccionada.getNit());
+
+                        if (empleados.isEmpty()) {
+                            System.out.println("No hay empleados en esta empresa.");
+                        } else {
+                            System.out.println("Empleados en la empresa " + empresaSeleccionada.getNombre() + ":");
+                            empleados.forEach(System.out::println);
+                        }
                     } else {
-                        empleados.forEach(System.out::println);
+                        System.out.println("No hay empresas registradas.");
                     }
                 }
 

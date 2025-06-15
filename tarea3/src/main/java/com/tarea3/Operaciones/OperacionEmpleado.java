@@ -30,10 +30,10 @@ public class OperacionEmpleado implements IOperacionEmpleado {
     }
 
     @Override
-    public double calcularSueldo(String documento, int horas) {
+    public double calcularSueldo(String documento) {
         Empleado e = buscarPorDocumento(documento);
         if (e != null) {
-            return e.getValorHora() * horas;
+            return e.getValorHora() * e.getNumeroHorasTrabajadas();
         }
         return 0;
     }

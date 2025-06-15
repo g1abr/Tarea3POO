@@ -5,19 +5,19 @@ import com.Enum.LenguajeProgramacion;
 import com.Enum.TipoDocumento;
 
 public class Desarrollador extends Empleado {
-    private LenguajeProgramacion lenguajesProgramacion; 
-    private Experiencia nivelExperiencia; 
+    private LenguajeProgramacion lenguajesProgramacion;
+    private Experiencia nivelExperiencia;
     private int proyectosEntregados;
-    
-    public Desarrollador(){
+
+    public Desarrollador() {
 
     }
-    
+
     public Desarrollador(TipoDocumento tipoDocumento, String documento, String nombre,
             float valorHora, int numeroHorasTrabajadas, Empresa empresa,
-           LenguajeProgramacion lenguajesProgramacion, Experiencia nivelExperiencia,
+            LenguajeProgramacion lenguajesProgramacion, Experiencia nivelExperiencia,
             int proyectosEntregados) {
-        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa); 
+        super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa);
         this.lenguajesProgramacion = lenguajesProgramacion;
         this.nivelExperiencia = nivelExperiencia;
         this.proyectosEntregados = proyectosEntregados;
@@ -45,14 +45,24 @@ public class Desarrollador extends Empleado {
 
     @Override
     public double salarioBruto() {
-        return getValorHora() * getNumeroHorasTrabajadas(); 
+        return getValorHora() * getNumeroHorasTrabajadas();
     }
 
     @Override
     public double bonificacionLabor() {
-        double bonoBase = salarioBruto() * 0.08; 
-        double bonoProyectos = proyectosEntregados * 100000; 
+        double bonoBase = salarioBruto() * 0.08;
+        double bonoProyectos = proyectosEntregados * 100000;
         return bonoBase + bonoProyectos;
     }
-    
+
+    // @Override
+    // public String toString() {
+    //     return "Desarrollador: " + getNombre() +
+    //             ", Documento: " + getDocumento() +
+    //             ", Lenguaje: " + (lenguajesProgramacion != null ? lenguajesProgramacion.name() : "No especificado") +
+    //             ", Experiencia: " + (nivelExperiencia != null ? nivelExperiencia.name() : "No especificada") +
+    //             ", Proyectos: " + proyectosEntregados +
+    //             ", Empresa: " + (getEmpresa() != null ? getEmpresa().getNombre() : "Sin asignar");
+    // }
+
 }

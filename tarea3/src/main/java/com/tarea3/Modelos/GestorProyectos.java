@@ -10,7 +10,8 @@ public class GestorProyectos extends Empleado {
 
     }
 
-    public GestorProyectos(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora, int numeroHorasTrabajadas, Empresa empresa, Area_enum area) {
+    public GestorProyectos(TipoDocumento tipoDocumento, String documento, String nombre, float valorHora,
+            int numeroHorasTrabajadas, Empresa empresa, Area_enum area) {
         super(tipoDocumento, documento, nombre, valorHora, numeroHorasTrabajadas, empresa);
         this.area = area;
     }
@@ -32,5 +33,13 @@ public class GestorProyectos extends Empleado {
     public double bonificacionLabor() {
         return salarioBruto() * 0.15;
     }
+
+    // @Override
+    // public String toString() {
+    //     return "Gestor de Proyectos: " + getNombre() +
+    //             ", Documento: " + getDocumento() +
+    //             ", Área: " + area +
+    //             ", Empresa: " + (getEmpresa() != null ? getEmpresa().getNombre() : "Sin asignar");
+    // }
 
 }
